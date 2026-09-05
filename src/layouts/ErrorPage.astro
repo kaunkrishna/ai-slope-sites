@@ -1,0 +1,23 @@
+---
+import Layout from './Layout.astro';
+
+interface Props {
+	code: string;
+	title: string;
+	message: string;
+}
+
+const { code, title, message } = Astro.props;
+---
+
+<Layout title={`${code} — ${title} | Font Finder`} description={message} canonical="https://fontfinder.com/">
+	<main class="grid min-h-screen place-items-center px-4 py-16">
+		<section class="page-shell max-w-xl text-center">
+			<a href="/" class="mx-auto flex w-fit items-center gap-2 font-semibold tracking-[-.04em] text-ink"><img src="/logo.svg" class="size-8" width="32" height="32" alt="" />Font Finder</a>
+			<p class="mt-16 font-mono text-xs font-medium uppercase tracking-wide text-muted">Error {code}</p>
+			<h1 class="mt-4 text-4xl font-semibold tracking-[-.06em] text-ink sm:text-6xl">{title}</h1>
+			<p class="mx-auto mt-5 max-w-md leading-7 text-body">{message}</p>
+			<div class="mt-8 flex flex-wrap justify-center gap-3"><a href="/" class="rounded-full bg-ink px-5 py-3 text-sm font-medium text-white transition hover:bg-black focus-visible:focus-ring">Back to home <span aria-hidden="true">→</span></a><a href="/#finder" class="rounded-full border border-hairline bg-white px-5 py-3 text-sm font-medium text-ink transition hover:border-ink focus-visible:focus-ring">Find a font</a></div>
+		</section>
+	</main>
+</Layout>

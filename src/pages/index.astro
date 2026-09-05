@@ -1,11 +1,137 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const matches = [
+	{ name: 'Neue Haas Grotesk', kind: 'Paid', score: 96, category: 'Neo-grotesk sans', price: '$35 / style', source: 'Monotype', specimen: 'Design with clarity.' },
+	{ name: 'Inter', kind: 'Free', score: 91, category: 'Humanist sans', price: 'Open Font License', source: 'Google Fonts', specimen: 'Design with clarity.' },
+	{ name: 'Manrope', kind: 'Free', score: 88, category: 'Geometric sans', price: 'Open Font License', source: 'Google Fonts', specimen: 'Design with clarity.' },
+	{ name: 'Helvetica Now', kind: 'Paid', score: 86, category: 'Neo-grotesk sans', price: '$42 / style', source: 'Monotype', specimen: 'Design with clarity.' },
+];
+
+const faqs = [
+	{ question: 'What is a font finder?', answer: 'A font finder is a tool that helps identify a typeface from an image, screenshot, logo, or text sample. It compares visible letterforms and returns likely matches and similar alternatives.' },
+	{ question: 'Can Google identify a font?', answer: 'Google Lens can sometimes recognize text and visually similar objects, but it is not a dedicated font-identification tool. For a practical alternative, compare the result with Google Fonts and inspect individual letterforms.' },
+	{ question: 'How can I identify a type of font?', answer: 'Start by deciding whether the sample is serif, sans-serif, script, display, or monospace. Then compare details such as stroke contrast, proportions, terminals, spacing, and distinctive characters.' },
+	{ question: 'How to see which font is used?', answer: 'For live website text, browser developer tools can show the rendered font family. For text inside a screenshot, logo, or flattened image, upload a clear crop to a font finder instead.' },
+	{ question: 'Can I use AI to identify a font?', answer: 'Yes. An AI font finder can analyze visible letter shapes and rank likely matches. Treat its result as a shortlist, then compare the actual glyphs and license terms before using a font.' },
+	{ question: 'Is there a free font finder?', answer: 'Yes. Font Finder lets you upload a sample, compare likely matches, and use the free-only filter to focus on open-license alternatives. Always check the source license for your intended use.' },
+	{ question: 'How to match a font?', answer: 'Use a sharp sample with several readable characters, then compare candidate fonts with the same custom specimen text. Check the width, x-height, weight, spacing, and signature glyphs rather than relying only on a match score.' },
+	{ question: 'Can I take a picture of a font and find it?', answer: 'Yes. A clear, well-lit photo of printed text can work well. Crop tightly around one typeface, avoid reflections and perspective distortion, and include as many distinct letters as possible.' },
+	{ question: 'Where can I find free fonts?', answer: 'Google Fonts is a popular source of open-license web fonts. Other established font libraries also offer free families, but always read the license on the original source before commercial or client use.' },
+	{ question: 'How to find a specific text font?', answer: 'If you have an image, upload the clearest crop you can. If you only have text, describe its style, category, width, weight, and mood, then test likely families using the same words.' },
+	{ question: 'How do I use Google Fonts?', answer: 'Choose a family on Google Fonts, select the styles you need, and use the provided web embed code or download the font files. Limit the number of styles to help keep page loading efficient.' },
+	{ question: 'How to identify a font in a PDF?', answer: 'For selectable text in a digital PDF, a PDF reader may list embedded fonts in its document properties. For scans, screenshots, or flattened artwork, crop the visible type and use image-based matching.' },
+	{ question: 'Can I create a font using AI?', answer: 'AI can help explore letterform concepts and generate starting material, but a usable font still needs careful design, consistent glyphs, spacing, kerning, testing, and clear licensing. Review the tool terms before publishing.' },
+];
+
+const structuredData = {
+	'@context': 'https://schema.org',
+	'@graph': [
+		{
+			'@type': 'WebApplication',
+			name: 'Font Finder',
+			url: 'https://fontfinder.com/',
+			description: 'Upload an image to discover likely font matches and compare free alternatives.',
+			applicationCategory: 'DesignApplication',
+			operatingSystem: 'Web',
+		},
+		{
+			'@type': 'FAQPage',
+			mainEntity: faqs.map(({ question, answer }) => ({
+				'@type': 'Question',
+				name: question,
+				acceptedAnswer: { '@type': 'Answer', text: answer },
+			})),
+		},
+	],
+};
 ---
 
-<Layout>
-	<Welcome />
+<Layout title="Font Finder: Find Fonts From Images & Free Alternatives" description="Upload an image with Font Finder to discover likely font matches, compare free alternatives, and find practical licensing information.">
+	<script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+	<header class="border-b border-hairline">
+		<nav class="page-shell flex h-14 items-center justify-between gap-3 sm:h-16 sm:gap-5" aria-label="Primary navigation">
+			<a href="/" class="flex shrink-0 items-center gap-2 font-semibold tracking-[-.04em] text-ink" aria-label="Font Finder home"><img src="/logo.svg" class="size-7" width="28" height="28" alt="" />Font Finder</a>
+			<div class="hidden items-center gap-6 text-sm text-body md:flex"><a href="#how" class="hover:text-ink">How it works</a><a href="#results" class="hover:text-ink">Browse fonts</a><a href="#faq" class="hover:text-ink">FAQ</a></div>
+			<a href="#finder" class="shrink-0 rounded-full bg-ink px-3 py-2 text-sm font-medium text-white transition hover:bg-black focus-visible:focus-ring sm:px-4">Find a font <span aria-hidden="true">↗</span></a>
+		</nav>
+	</header>
+
+	<main>
+		<section class="relative overflow-hidden border-b border-hairline px-4 pb-14 pt-14 sm:pb-24 sm:pt-24">
+			<div class="mesh-orb pointer-events-none absolute left-1/2 top-[-100px] h-[430px] w-[680px] -translate-x-1/2 opacity-45" aria-hidden="true"></div>
+			<div class="page-shell relative text-center"><p class="font-mono text-xs font-medium uppercase tracking-wide text-body">Visual font search, made useful</p><h1 class="mx-auto mt-5 max-w-3xl text-4xl leading-[.98] font-semibold tracking-[-.065em] text-ink sm:text-6xl md:text-7xl">Find the font.<br /><span class="text-body">Keep the feeling.</span></h1><p class="mx-auto mt-6 max-w-xl text-base leading-7 text-body">Upload any screenshot, logo, or type sample. Get likely matches—and free, licensable alternatives you can actually use.</p><div class="mt-8 flex flex-wrap justify-center gap-x-4 gap-y-2 font-mono text-xs text-muted sm:gap-x-5"><span>NO ACCOUNT REQUIRED</span><span aria-hidden="true">•</span><span>FREE ALTERNATIVES INCLUDED</span></div></div>
+		</section>
+
+		<section id="finder" class="page-shell py-12 sm:py-16">
+			<div class="grid gap-8 lg:grid-cols-[.85fr_1.15fr] lg:items-start">
+				<div class="lg:pt-6"><p class="font-mono text-xs font-medium uppercase tracking-wide text-muted">01 — Upload a sample</p><h2 class="mt-3 text-3xl font-semibold tracking-[-.05em]">Start with what you see.</h2><p class="mt-3 max-w-sm leading-6 text-body">A sharp crop with six or more letters gives you the best chance of a precise match.</p><div class="mt-7 space-y-3 text-sm text-body"><p class="flex gap-3"><span class="text-ink">✓</span> Screenshots, logos, posters, and photos</p><p class="flex gap-3"><span class="text-ink">✓</span> JPG, PNG, WebP up to 10 MB</p><p class="flex gap-3"><span class="text-ink">✓</span> Paste straight from your clipboard</p></div></div>
+				<div class="rounded-2xl border border-hairline bg-surface p-3 shadow-[0_16px_50px_rgba(0,0,0,.04)] sm:p-5">
+					<div id="dropzone" class="group relative flex min-h-64 flex-col items-center justify-center rounded-xl border border-dashed border-[#c9c9c9] bg-[#fcfcfc] p-5 text-center transition hover:border-ink hover:bg-white sm:min-h-80 sm:p-6">
+						<input id="image-input" class="absolute inset-0 cursor-pointer opacity-0" type="file" accept="image/png,image/jpeg,image/webp" aria-label="Choose an image to find a font" />
+						<div id="upload-empty"><div class="mx-auto grid size-12 place-items-center rounded-full border border-hairline bg-white text-xl">↑</div><h3 class="mt-4 text-lg font-medium">Drop an image here</h3><p class="mt-1 text-sm text-muted">or click to browse your files</p><span class="mt-5 inline-flex rounded-md border border-hairline bg-white px-3 py-2 text-sm font-medium">Choose image</span></div>
+						<div id="upload-preview" class="hidden w-full"><img id="preview-image" class="mx-auto max-h-52 max-w-full rounded-lg object-contain" alt="Your uploaded font sample" /><div class="mt-4 flex items-center justify-between gap-3 rounded-lg border border-hairline bg-white p-3 text-left"><div class="min-w-0"><p id="file-name" class="truncate text-sm font-medium">sample.png</p><p class="text-xs text-muted">Ready to analyze</p></div><button id="remove-image" class="rounded-md p-2 text-body hover:bg-hairline-soft" aria-label="Remove image">×</button></div></div>
+					</div>
+					<div class="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"><p class="text-xs text-muted">Your image stays in this browser during this demo.</p><button id="analyze-button" class="w-full rounded-full bg-ink px-5 py-3 text-sm font-medium text-white transition hover:bg-black disabled:cursor-not-allowed disabled:bg-[#b5b5b5] sm:w-auto" disabled>Analyze sample <span aria-hidden="true">→</span></button></div>
+					<div id="analysis-progress" class="hidden mt-5 border-t border-hairline pt-4"><div class="flex justify-between text-sm"><span id="progress-label">Reading letterforms</span><span id="progress-value">0%</span></div><div class="mt-3 h-1 overflow-hidden rounded-full bg-hairline-soft"><div id="progress-bar" class="h-full w-0 bg-ink transition-all duration-500"></div></div></div>
+				</div>
+			</div>
+		</section>
+
+		<section id="results" class="border-y border-hairline bg-[#f7f7f7] py-14 sm:py-20"><div class="page-shell"><div class="flex flex-col justify-between gap-5 sm:flex-row sm:items-end"><div><p class="font-mono text-xs font-medium uppercase tracking-wide text-muted">02 — Compare your matches</p><h2 class="mt-3 text-3xl font-semibold tracking-[-.05em]">A match is only the start.</h2></div><label class="flex w-full cursor-pointer items-center justify-center gap-3 rounded-full border border-hairline bg-white px-4 py-2 text-sm font-medium sm:w-fit"><input id="free-toggle" type="checkbox" class="size-4 accent-ink" /> Show free fonts only</label></div>
+			<div id="results-intro" class="mt-8 rounded-xl border border-dashed border-[#c9c9c9] bg-white px-6 py-10 text-center"><p class="font-medium">Your tailored matches will appear here.</p><p class="mt-1 text-sm text-muted">Upload an image above to compare exact matches and free alternatives.</p></div>
+			<div id="results-content" class="hidden mt-8"><div class="mb-5 flex flex-col gap-3 rounded-xl border border-hairline bg-white p-4 sm:flex-row sm:items-center sm:justify-between"><div><p class="text-sm font-medium">Sample insight</p><p class="mt-1 text-sm text-body">Clean neo-grotesk sans · regular weight · tight tracking</p></div><div class="flex items-center gap-2"><span class="font-mono text-xs text-muted">CONFIDENCE</span><span class="rounded-full bg-free-soft px-2.5 py-1 text-xs font-medium text-free">High</span></div></div><div id="match-grid" class="grid gap-4 md:grid-cols-2"></div><section class="mt-10 rounded-2xl border border-ink bg-ink p-5 text-white sm:p-8"><p class="font-mono text-xs uppercase tracking-wide text-[#a1a1a1]">The practical next step</p><div class="mt-4 flex flex-col justify-between gap-6 sm:flex-row sm:items-end"><div><h3 class="text-2xl font-semibold tracking-[-.04em]">Need a free alternative?</h3><p class="mt-2 max-w-lg text-sm leading-6 text-[#c8c8c8]">Inter and Manrope give you the closest visual feel with commercial-friendly open licenses.</p></div><button id="show-free" class="w-full rounded-full bg-white px-4 py-2.5 text-sm font-medium text-ink sm:w-fit">View free matches →</button></div></section></div></div></section>
+
+		<section id="how" class="page-shell py-16 sm:py-24"><div class="max-w-2xl"><p class="font-mono text-xs font-medium uppercase tracking-wide text-muted">Built for decisions, not guesses</p><h2 class="mt-3 text-3xl font-semibold tracking-[-.05em] sm:text-4xl">From a visual clue to a font you can use.</h2></div><div class="mt-10 grid divide-y divide-hairline border-y border-hairline md:grid-cols-3 md:divide-x md:divide-y-0"><article class="py-7 md:px-7 md:first:pl-0"><span class="font-mono text-xs text-muted">01</span><h3 class="mt-5 text-lg font-semibold">See the evidence</h3><p class="mt-2 text-sm leading-6 text-body">Review category, weight, letterform clues, and a clear confidence signal—not a mysterious score.</p></article><article class="py-7 md:px-7"><span class="font-mono text-xs text-muted">02</span><h3 class="mt-5 text-lg font-semibold">Test the feeling</h3><p class="mt-2 text-sm leading-6 text-body">Type your own words into every result and judge the match side by side.</p></article><article class="py-7 md:px-7 md:pr-0"><span class="font-mono text-xs text-muted">03</span><h3 class="mt-5 text-lg font-semibold">Know what you can use</h3><p class="mt-2 text-sm leading-6 text-body">Paid and free options are separated clearly, with the practical replacement surfaced first.</p></article></div></section>
+
+		<section id="guide" class="border-t border-hairline bg-white py-16 sm:py-24"><article class="page-shell max-w-3xl"><p class="font-mono text-xs font-medium uppercase tracking-wide text-muted">Font Finder guide</p><h2 class="mt-3 text-3xl font-semibold tracking-[-.05em] sm:text-4xl">Find a font from an image—then find the right way to use it.</h2><div class="mt-8 space-y-5 text-[15px] leading-7 text-body"><p><strong class="font-medium text-ink">Font Finder</strong> is built for the moment when you can see great typography but do not know its name. A logo, a screenshot, a poster, a social post, or a product package can all become a useful starting point. Upload a clear sample and use the result as a practical shortlist: review likely families, compare their character, and choose a font that fits your project. The goal is not simply to answer “what font is this?” but to help you move confidently from visual inspiration to a usable type choice.</p><p>A <strong class="font-medium text-ink">font finder by image</strong> works best when the letterforms are easy to see. Crop around one line or one word, keep the text reasonably straight, and include several distinctive letters when possible. Characters such as a, g, R, S, Q, and numerals often reveal more than a short all-caps label. A high-contrast image font finder sample gives the matching process more useful detail than a tiny, blurry, or heavily filtered screenshot.</p><h3 class="pt-3 text-xl font-semibold tracking-[-.03em] text-ink">How to use a font finder from image</h3><p>Start by choosing the clearest image you have. With Font Finder, you can upload an image from your device, drag it into the upload area, or paste a screenshot from your clipboard. This makes the workflow useful for saved web inspiration, brand references, presentation slides, and photos of printed material. Once you analyze the sample, compare the suggested font families using your own specimen text. Changing the preview to a word from your design is often the fastest way to tell whether a close match has the right rhythm, width, and personality.</p><p>Many people look for a <strong class="font-medium text-ink">font finder from image free</strong> because they need a dependable replacement rather than an expensive exact match. That is why the results make licensing visible and provide a free-only filter. If an original typeface is paid, custom, or unavailable, a free font finder can point you toward an open-license alternative with a similar visual tone. Free does not mean license-free in every situation, so always open the source and review the license before publishing work for a client, product, or campaign.</p><h3 class="pt-3 text-xl font-semibold tracking-[-.03em] text-ink">More than a font name</h3><p>An <strong class="font-medium text-ink">AI font finder</strong> is most helpful when it gives context alongside its best guess. Typeface identification is visual: two families can share a category while differing in stroke contrast, terminal shape, proportions, spacing, or the design of individual glyphs. Font Finder groups those clues into a readable result, including category, likely weight, match confidence, and nearby alternatives. Treat a match score as guidance, then inspect the letterforms yourself—especially when you are working with a logo, a display face, or type that may have been modified.</p><p>If you are searching for a <strong class="font-medium text-ink">font finder upload image</strong> tool, preparation makes a visible difference. Avoid uploading a whole busy webpage when you only need a headline. Do not mix several typefaces in one crop. Remove shadows, background textures, and perspective distortion if you can. A sample with at least six readable characters is a good rule of thumb. When the text is embedded in a hero graphic or a scanned document, image matching is often the right route because browser inspection cannot reveal typography that has been flattened into pixels.</p><h3 class="pt-3 text-xl font-semibold tracking-[-.03em] text-ink">Free alternatives, Google Fonts, and text matching</h3><p>A <strong class="font-medium text-ink">google font finder</strong> search is usually about finding a practical font that is quick to try on the web. Google Fonts can be an excellent source for free alternatives, but it is only one source and not every visual match belongs there. Font Finder separates paid candidates from free options so you can make the tradeoff clearly. Use the free-only toggle when budget, speed, or open licensing matters most; leave it off when you want the widest possible match list first.</p><p>Sometimes an image is not available. A <strong class="font-medium text-ink">font finder by text</strong> workflow starts with what you know instead: serif or sans-serif, narrow or wide, friendly or formal, geometric or humanist. Those observations can narrow a search, but an image sample remains stronger when you need to compare distinctive letters. Whether you call it a “<strong class="font-medium text-ink">what the font finder</strong>” search or simply need an answer for a design reference, combining a visual sample with editable preview text leads to a more reliable decision.</p><p>Use Font Finder when you need to identify a typeface from a screenshot, find a similar family for a mockup, or discover a free option that carries the same feeling. A font finder free of unnecessary friction should help you inspect, compare, and act. Upload your sample above, review the matches, and choose the font that works for the design in front of you.</p></div></article></section>
+
+		<section class="border-t border-hairline bg-white py-10"><div class="page-shell max-w-3xl text-[15px] leading-7 text-body"><p>For the strongest result, keep your original image nearby while comparing candidates. Pay attention to the small decisions that make a family recognizable: the tail of a lowercase g, the width of an uppercase M, rounded versus square dots, and how letters sit beside one another. This final visual check turns a promising match into an informed font choice.</p></div></section>
+
+		<section id="faq" class="border-t border-hairline bg-[#f7f7f7] py-16"><div class="page-shell grid gap-10 lg:grid-cols-[.65fr_1fr]"><div><p class="font-mono text-xs font-medium uppercase tracking-wide text-muted">Questions</p><h2 class="mt-3 text-3xl font-semibold tracking-[-.05em]">Good to know.</h2></div><div class="divide-y divide-hairline border-y border-hairline"><details class="group py-5"><summary class="flex cursor-pointer list-none justify-between gap-5 font-medium"><span class="min-w-0">Does Font Finder identify every font?</span><span class="shrink-0 text-muted group-open:rotate-45">+</span></summary><p class="mt-3 max-w-xl text-sm leading-6 text-body">It returns the most likely matches from the visible letterforms. Custom lettering and heavily edited type may produce close alternatives instead of an exact family.</p></details><details class="group py-5"><summary class="flex cursor-pointer list-none justify-between gap-5 font-medium"><span class="min-w-0">What does “free” mean here?</span><span class="shrink-0 text-muted group-open:rotate-45">+</span></summary><p class="mt-3 max-w-xl text-sm leading-6 text-body">Free results are presented as open-license alternatives. Always review the linked license before using any font in a production project.</p></details><details class="group py-5"><summary class="flex cursor-pointer list-none justify-between gap-5 font-medium"><span class="min-w-0">Which images work best?</span><span class="shrink-0 text-muted group-open:rotate-45">+</span></summary><p class="mt-3 max-w-xl text-sm leading-6 text-body">Use a sharp, high-contrast crop with one font and several distinctive characters. Headlines and logos generally make the clearest samples.</p></details></div></div></section>
+		<section id="seo-faq" class="border-t border-hairline bg-white py-16 sm:py-24"><div class="page-shell max-w-3xl"><p class="font-mono text-xs font-medium uppercase tracking-wide text-muted">Font identification FAQ</p><h2 class="mt-3 text-3xl font-semibold tracking-[-.05em] sm:text-4xl">Questions about finding fonts</h2><p class="mt-4 max-w-2xl leading-7 text-body">Clear answers for identifying type from images, websites, PDFs, and text samples—plus practical guidance on free fonts and AI-assisted design.</p><div class="mt-8 divide-y divide-hairline border-y border-hairline">{faqs.map(({ question, answer }) => <details class="group py-5"><summary class="flex cursor-pointer list-none justify-between gap-5 font-medium text-ink"><span class="min-w-0">{question}</span><span class="shrink-0 text-muted transition group-open:rotate-45" aria-hidden="true">+</span></summary><p class="mt-3 max-w-2xl text-sm leading-6 text-body">{answer}</p></details>)}</div></div></section>
+	</main>
+
+	<footer class="border-t border-hairline"><div class="page-shell flex flex-col gap-5 py-8 text-sm text-body lg:flex-row lg:items-center lg:justify-between"><a href="/" class="flex items-center gap-2 font-semibold tracking-[-.04em] text-ink"><img src="/logo.svg" class="size-6" width="24" height="24" alt="" />Font Finder</a><p>Find type you’ll feel good using.</p><nav class="flex flex-wrap gap-x-5 gap-y-2" aria-label="Footer navigation"><a class="hover:text-ink" href="/about-us">About us</a><a class="hover:text-ink" href="/contact-us">Contact us</a><a class="hover:text-ink" href="/privacy-policy">Privacy policy</a><a class="hover:text-ink" href="/terms-and-conditions">Terms &amp; conditions</a></nav><p class="font-mono text-xs">© 2026 FONTFINDER.COM</p></div></footer>
 </Layout>
+
+<script define:vars={{ matches }}>
+	const input = document.querySelector('#image-input');
+	const dropzone = document.querySelector('#dropzone');
+	const preview = document.querySelector('#upload-preview');
+	const empty = document.querySelector('#upload-empty');
+	const previewImage = document.querySelector('#preview-image');
+	const fileName = document.querySelector('#file-name');
+	const analyze = document.querySelector('#analyze-button');
+	const remove = document.querySelector('#remove-image');
+	const progress = document.querySelector('#analysis-progress');
+	const progressBar = document.querySelector('#progress-bar');
+	const progressValue = document.querySelector('#progress-value');
+	const progressLabel = document.querySelector('#progress-label');
+	const resultsIntro = document.querySelector('#results-intro');
+	const resultsContent = document.querySelector('#results-content');
+	const grid = document.querySelector('#match-grid');
+	const freeToggle = document.querySelector('#free-toggle');
+
+	function loadFile(file) {
+		if (!file || !file.type.startsWith('image/')) return;
+		const reader = new FileReader();
+		reader.onload = () => { previewImage.src = reader.result; fileName.textContent = file.name; preview.classList.remove('hidden'); empty.classList.add('hidden'); analyze.disabled = false; };
+		reader.readAsDataURL(file);
+	}
+	input.addEventListener('change', () => loadFile(input.files[0]));
+	['dragenter', 'dragover'].forEach((event) => dropzone.addEventListener(event, (e) => { e.preventDefault(); dropzone.classList.add('border-ink'); }));
+	['dragleave', 'drop'].forEach((event) => dropzone.addEventListener(event, (e) => { e.preventDefault(); dropzone.classList.remove('border-ink'); }));
+	dropzone.addEventListener('drop', (e) => loadFile(e.dataTransfer.files[0]));
+	document.addEventListener('paste', (e) => { const file = [...e.clipboardData.files].find((item) => item.type.startsWith('image/')); if (file) loadFile(file); });
+	remove.addEventListener('click', () => { input.value = ''; preview.classList.add('hidden'); empty.classList.remove('hidden'); analyze.disabled = true; });
+
+	function renderMatches() {
+		const freeOnly = freeToggle.checked;
+		const visible = matches.filter((match) => !freeOnly || match.kind === 'Free');
+		grid.innerHTML = visible.map((match, index) => `<article class="rounded-xl border ${index === 0 && !freeOnly ? 'border-ink' : 'border-hairline'} bg-white p-4 sm:p-5"><div class="flex items-start justify-between gap-3 sm:gap-4"><div class="min-w-0"><div class="flex flex-wrap items-center gap-2"><h3 class="font-semibold">${match.name}</h3><span class="rounded-full px-2 py-0.5 text-xs font-medium ${match.kind === 'Free' ? 'bg-[#e9f8ef] text-[#087443]' : 'bg-[#f2f2f2] text-[#4d4d4d]'}">${match.kind}</span></div><p class="mt-1 text-xs text-muted">${match.category} · ${match.source}</p></div><span class="shrink-0 font-mono text-sm">${match.score}%</span></div><input aria-label="Edit specimen text for ${match.name}" value="${match.specimen}" class="mt-6 w-full border-0 border-b border-hairline bg-transparent pb-3 text-xl tracking-[-.04em] outline-none focus:border-ink sm:mt-7 sm:text-2xl" style="font-family: ${match.name}, Arial, sans-serif" /><div class="mt-5 flex items-center justify-between gap-3 text-xs text-body"><span>${match.price}</span><a href="https://fonts.google.com" target="_blank" rel="noreferrer" class="shrink-0 font-medium text-ink underline underline-offset-4">View font ↗</a></div></article>`).join('');
+	}
+	freeToggle.addEventListener('change', renderMatches);
+	document.querySelector('#show-free').addEventListener('click', () => { freeToggle.checked = true; renderMatches(); document.querySelector('#match-grid').scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+	analyze.addEventListener('click', () => { analyze.disabled = true; progress.classList.remove('hidden'); const steps = [[30, 'Reading letterforms'], [65, 'Comparing font features'], [100, 'Ranking useful matches']]; steps.forEach(([value, label], index) => setTimeout(() => { progressBar.style.width = `${value}%`; progressValue.textContent = `${value}%`; progressLabel.textContent = label; if (value === 100) setTimeout(() => { resultsIntro.classList.add('hidden'); resultsContent.classList.remove('hidden'); renderMatches(); resultsContent.scrollIntoView({ behavior: 'smooth', block: 'start' }); analyze.disabled = false; }, 450); }, (index + 1) * 650)); });
+</script>

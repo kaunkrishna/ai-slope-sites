@@ -1,0 +1,40 @@
+@import "tailwindcss";
+@source not "../../.agents";
+
+@theme {
+  --color-canvas: #fafafa;
+  --color-surface: #ffffff;
+  --color-ink: #171717;
+  --color-body: #4d4d4d;
+  --color-muted: #8f8f8f;
+  --color-hairline: #ebebeb;
+  --color-hairline-soft: #f2f2f2;
+  --color-link: #0070f3;
+  --color-free: #087443;
+  --color-free-soft: #e9f8ef;
+  --font-sans: "Geist", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body { min-width: 320px; }
+  button, input { font: inherit; }
+  button { cursor: pointer; }
+  ::selection { background: #d3e5ff; }
+}
+
+@utility page-shell {
+  margin-inline: auto;
+  width: min(100% - 2rem, 1120px);
+}
+
+@utility focus-ring {
+  outline: 2px solid var(--color-link);
+  outline-offset: 3px;
+}
+
+@utility mesh-orb {
+  background: radial-gradient(circle at 35% 45%, #50e3c2 0, transparent 27%), radial-gradient(circle at 62% 35%, #007cf0 0, transparent 28%), radial-gradient(circle at 75% 62%, #ff0080 0, transparent 25%), radial-gradient(circle at 43% 75%, #7928ca 0, transparent 29%);
+  filter: blur(20px);
+}

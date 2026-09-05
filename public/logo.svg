@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" role="img" aria-labelledby="title">
+  <title id="title">Font Finder</title>
+  <rect x="45" y="45" width="510" height="510" rx="60" fill="#020202"/>
+  <g fill="#020202" fill-opacity=".9" stroke="#fff" stroke-width="13.9" stroke-linecap="round" stroke-linejoin="round">
+    <path d="m206.625 331.125 41.5-83 41.5 83"/>
+    <path d="M217 310.375h62.25"/>
+    <circle cx="362.25" cy="300" r="31.125"/>
+    <path d="M393.375 268.875v62.25"/>
+  </g>
+</svg>

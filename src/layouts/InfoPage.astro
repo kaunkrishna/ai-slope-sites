@@ -1,0 +1,38 @@
+---
+import Layout from './Layout.astro';
+
+interface Props {
+	title: string;
+	description: string;
+	canonical: string;
+	eyebrow?: string;
+}
+
+const { title, description, canonical, eyebrow = 'Font Finder' } = Astro.props;
+---
+
+<Layout {title} {description} {canonical}>
+	<header class="border-b border-hairline">
+		<nav class="page-shell flex h-14 items-center justify-between gap-3 sm:h-16 sm:gap-5" aria-label="Primary navigation">
+			<a href="/" class="flex shrink-0 items-center gap-2 font-semibold tracking-[-.04em] text-ink" aria-label="Font Finder home"><img src="/logo.svg" class="size-7" width="28" height="28" alt="" />Font Finder</a>
+			<div class="hidden items-center gap-6 text-sm text-body md:flex"><a href="/#how" class="hover:text-ink">How it works</a><a href="/#results" class="hover:text-ink">Browse fonts</a><a href="/#faq" class="hover:text-ink">FAQ</a></div>
+			<a href="/#finder" class="shrink-0 rounded-full bg-ink px-3 py-2 text-sm font-medium text-white transition hover:bg-black focus-visible:focus-ring sm:px-4">Find a font <span aria-hidden="true">↗</span></a>
+		</nav>
+	</header>
+
+	<main>
+		<section class="border-b border-hairline px-4 py-14 sm:py-20">
+			<div class="page-shell max-w-3xl">
+				<p class="font-mono text-xs font-medium uppercase tracking-wide text-muted">{eyebrow}</p>
+				<h1 class="mt-3 text-4xl font-semibold tracking-[-.06em] text-ink sm:text-5xl">{title}</h1>
+				<div class="mt-10 space-y-8 text-[15px] leading-7 text-body">
+					<slot />
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<footer class="border-t border-hairline">
+		<div class="page-shell flex flex-col gap-5 py-8 text-sm text-body lg:flex-row lg:items-center lg:justify-between"><a href="/" class="flex items-center gap-2 font-semibold tracking-[-.04em] text-ink"><img src="/logo.svg" class="size-6" width="24" height="24" alt="" />Font Finder</a><nav class="flex flex-wrap gap-x-5 gap-y-2" aria-label="Footer navigation"><a class="hover:text-ink" href="/about-us">About us</a><a class="hover:text-ink" href="/contact-us">Contact us</a><a class="hover:text-ink" href="/privacy-policy">Privacy policy</a><a class="hover:text-ink" href="/terms-and-conditions">Terms &amp; conditions</a></nav><p class="font-mono text-xs">© 2026 FONTFINDER.COM</p></div>
+	</footer>
+</Layout>
