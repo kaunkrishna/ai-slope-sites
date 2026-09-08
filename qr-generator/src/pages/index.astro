@@ -1,0 +1,331 @@
+---
+import Layout from '../layouts/Layout.astro';
+import QRGenerator from '../components/QRGenerator.astro';
+import FeatureTile from '../components/FeatureTile.astro';
+import TypeCard from '../components/TypeCard.astro';
+---
+
+<Layout>
+  <!-- Hero -->
+  <section id="generator" class="min-h-[calc(100vh-56px)] flex items-center justify-center py-24 px-6 md:px-8">
+    <div class="max-w-[980px] mx-auto w-full">
+      <div class="text-center mb-12">
+        <h1 class="font-display text-[48px] md:text-[85px] font-semibold leading-[0.95] tracking-[-4.25px] text-ink mb-6">
+          Free QR Code Generator
+        </h1>
+        <p class="text-framer-body-lg text-ink-muted max-w-[600px] mx-auto">
+          Create custom QR codes online — instantly and for free. No signup required. Paste your URL, text, or contact info and get a scannable QR code in seconds.
+        </p>
+      </div>
+
+      <QRGenerator />
+    </div>
+  </section>
+
+  <!-- Features — Gradient Spotlight Cards -->
+  <section id="features" class="px-6 md:px-8">
+    <div class="max-w-[1200px] mx-auto tile-section">
+      <div class="text-center mb-16">
+        <h2 class="font-display text-[32px] md:text-[62px] font-semibold leading-[1.0] tracking-[-3.1px] text-ink mb-4">
+          Built for Speed
+        </h2>
+        <p class="text-framer-body-lg text-ink-muted">
+          Every feature designed to get you from idea to QR code in seconds.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <FeatureTile
+          gradient="violet"
+          title="Instant Live Preview"
+          description="Your QR code updates as you type — no Generate button needed. See exactly what you'll get before you download it, so there's no guesswork."
+          icon="zap"
+        />
+        <FeatureTile
+          gradient="magenta"
+          title="Smart Type Detection"
+          description="Paste a URL, email, phone number, or WiFi config and the generator detects the format automatically. No need to manually switch between types."
+          icon="sparkles"
+        />
+        <FeatureTile
+          gradient="orange"
+          title="Customize Everything"
+          description="Change QR code colors, dot shapes, corner styles, and add your logo. Make your QR code match your brand — all customization is free."
+          icon="palette"
+        />
+        <FeatureTile
+          gradient="coral"
+          title="Download Any Format"
+          description="Export your QR code as PNG for digital use or SVG for print-quality graphics. High resolution with no watermarks, completely free."
+          icon="download"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- QR Code Types -->
+  <section id="types" class="px-6 md:px-8">
+    <div class="max-w-[1200px] mx-auto tile-section">
+      <div class="text-center mb-16">
+        <h2 class="font-display text-[32px] md:text-[62px] font-semibold leading-[1.0] tracking-[-3.1px] text-ink mb-4">
+          8 QR Code Types
+        </h2>
+        <p class="text-framer-body-lg text-ink-muted">
+          Every common QR code format in one free tool. No account needed.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <TypeCard icon="link" title="URL" description="Link to any webpage" />
+        <TypeCard icon="text" title="Text" description="Plain text messages" />
+        <TypeCard icon="wifi" title="WiFi" description="Share network access" />
+        <TypeCard icon="mail" title="Email" description="Pre-filled email draft" />
+        <TypeCard icon="user" title="vCard" description="Digital business card" />
+        <TypeCard icon="phone" title="Phone" description="Initiate a call" />
+        <TypeCard icon="message" title="SMS" description="Pre-written text message" />
+        <TypeCard icon="location" title="Location" description="GPS coordinates" />
+      </div>
+    </div>
+  </section>
+
+  <!-- SEO Content -->
+  <section class="px-6 md:px-8">
+    <div class="max-w-[720px] mx-auto tile-section">
+      <h2 class="font-display text-[32px] md:text-[62px] font-semibold leading-[1.0] tracking-[-3.1px] text-ink mb-8">
+        What Is a QR Code Generator?
+      </h2>
+      <p class="text-framer-body-lg text-ink-muted leading-relaxed mb-6">
+        A QR code generator is a tool that converts data — such as a website link, contact details, or text — into a scannable two-dimensional barcode. When someone scans the code with their smartphone camera, the encoded information is instantly accessible. QR codes are everywhere: on product packaging, restaurant menus, business cards, event posters, and digital ads.
+      </p>
+      <p class="text-framer-body-lg text-ink-muted leading-relaxed mb-8">
+        This free QR code generator runs entirely in your browser. Nothing is uploaded to a server. You enter your data, the code generates locally, and you download the result. There is no signup, no watermark, and no cost.
+      </p>
+
+      <h2 class="font-display text-[32px] md:text-[62px] font-semibold leading-[1.0] tracking-[-3.1px] text-ink mt-16 mb-8">
+        How to Create a QR Code Online
+      </h2>
+      <p class="text-framer-body-lg text-ink-muted leading-relaxed mb-4">
+        Creating a QR code with this tool takes under a minute:
+      </p>
+      <ol class="list-decimal list-inside space-y-3 mb-8 text-framer-body-lg text-ink-muted leading-relaxed">
+        <li><strong class="text-ink">Choose a type</strong> — Select URL, Text, WiFi, Email, vCard, Phone, SMS, or Location from the type buttons.</li>
+        <li><strong class="text-ink">Enter your information</strong> — Fill in the fields. The QR code generates in real time as you type — there is no Generate button to press.</li>
+        <li><strong class="text-ink">Customize the design</strong> — Open the Customize panel to adjust colors, dot styles, and optionally upload your brand logo.</li>
+        <li><strong class="text-ink">Download your QR code</strong> — Click Download PNG for digital use or Download SVG for print-quality output.</li>
+      </ol>
+
+      <h2 class="font-display text-[32px] md:text-[62px] font-semibold leading-[1.0] tracking-[-3.1px] text-ink mt-16 mb-8">
+        Types of QR Codes You Can Create
+      </h2>
+      <p class="text-framer-body-lg text-ink-muted leading-relaxed mb-4">
+        This free QR code maker supports eight common formats. Each type structures data differently so scanners interpret it correctly:
+      </p>
+      <ul class="list-disc list-inside space-y-2 mb-8 text-framer-body-lg text-ink-muted leading-relaxed">
+        <li><strong class="text-ink">URL QR Code</strong> — Links to any webpage, from product pages to social media profiles.</li>
+        <li><strong class="text-ink">Text QR Code</strong> — Encodes plain text up to 300 characters. Useful for serial numbers, short messages, or product information.</li>
+        <li><strong class="text-ink">WiFi QR Code</strong> — Stores your network name and password so guests can connect by scanning instead of typing.</li>
+        <li><strong class="text-ink">Email QR Code</strong> — Opens the scanner's email app with a pre-filled recipient, subject, and message body.</li>
+        <li><strong class="text-ink">vCard QR Code</strong> — Contains name, phone, email, and company details. Ideal for networking events and business cards.</li>
+        <li><strong class="text-ink">Phone QR Code</strong> — Triggers a phone call when scanned. Great for customer service lines or sales numbers.</li>
+        <li><strong class="text-ink">SMS QR Code</strong> — Opens a pre-written text message addressed to a specific number.</li>
+        <li><strong class="text-ink">Location QR Code</strong> — Encodes GPS coordinates that open in a maps application.</li>
+      </ul>
+
+      <h2 class="font-display text-[32px] md:text-[62px] font-semibold leading-[1.0] tracking-[-3.1px] text-ink mt-16 mb-8">
+        Custom QR Codes With Your Brand
+      </h2>
+      <p class="text-framer-body-lg text-ink-muted leading-relaxed mb-4">
+        Customization matters when your QR codes represent your business. This QR code creator gives you control over the visual design:
+      </p>
+      <ul class="list-disc list-inside space-y-2 mb-8 text-framer-body-lg text-ink-muted leading-relaxed">
+        <li><strong class="text-ink">QR code color</strong> — Change the foreground color from the default black to any hex value.</li>
+        <li><strong class="text-ink">Background color</strong> — Set a custom background to match your brand palette.</li>
+        <li><strong class="text-ink">Dot styles</strong> — Choose between Square, Rounded, Circle, or Diamond dot patterns.</li>
+        <li><strong class="text-ink">Logo upload</strong> — Embed your brand logo or any image in the center of the QR code. The code remains scannable.</li>
+      </ul>
+      <p class="text-framer-body-lg text-ink-muted leading-relaxed">
+        Customization is free. There is no paywall for advanced features and no watermarks added to your downloads.
+      </p>
+
+      <h2 class="font-display text-[32px] md:text-[62px] font-semibold leading-[1.0] tracking-[-3.1px] text-ink mt-16 mb-8">
+        How QR Codes Work
+      </h2>
+      <p class="text-framer-body-lg text-ink-muted leading-relaxed mb-4">
+        A QR code — short for Quick Response code — is a matrix barcode made up of black squares on a white grid. The pattern encodes data that a camera-based scanner reads and interprets. Modern smartphones can scan QR codes natively through the camera app, with no third-party app required.
+      </p>
+      <p class="text-framer-body-lg text-ink-muted leading-relaxed">
+        The three large squares in the corners of every QR code are finder patterns. They help scanners detect the code's position and orientation. The smaller squares and modules between them carry the actual data. Error correction built into the QR standard means the code can still be read even if part of it is damaged or covered — which is why embedding a logo in the center works without breaking the code.
+      </p>
+
+      <h2 class="font-display text-[32px] md:text-[62px] font-semibold leading-[1.0] tracking-[-3.1px] text-ink mt-16 mb-8">
+        Common Uses for QR Codes
+      </h2>
+      <p class="text-framer-body-lg text-ink-muted leading-relaxed mb-4">
+        QR codes are versatile. Here are some of the most common ways businesses and individuals use them:
+      </p>
+      <ul class="list-disc list-inside space-y-2 mb-8 text-framer-body-lg text-ink-muted leading-relaxed">
+        <li><strong class="text-ink">Marketing and advertising</strong> — Link print ads, flyers, and posters to landing pages or promotional videos.</li>
+        <li><strong class="text-ink">Restaurant menus</strong> — Replace physical menus with a QR code that opens a digital menu on the customer's phone.</li>
+        <li><strong class="text-ink">WiFi sharing</strong> — Print a WiFi QR code on a card or wall poster so visitors connect without asking for the password.</li>
+        <li><strong class="text-ink">Business cards</strong> — Add a vCard QR code so contacts can save your information with a single scan.</li>
+        <li><strong class="text-ink">Events and ticketing</strong> — Use QR codes for event check-in, ticket validation, or RSVP tracking.</li>
+        <li><strong class="text-ink">Product packaging</strong> — Link to setup instructions, warranty registration, or recipe pages.</li>
+        <li><strong class="text-ink">Payment and donations</strong> — Encode payment links for contactless transactions or charity donations.</li>
+      </ul>
+
+      <h2 class="font-display text-[32px] md:text-[62px] font-semibold leading-[1.0] tracking-[-3.1px] text-ink mt-16 mb-8">
+        Download Formats: PNG and SVG
+      </h2>
+      <p class="text-framer-body-lg text-ink-muted leading-relaxed mb-4">
+        This QR code generator supports two download formats:
+      </p>
+      <ul class="list-disc list-inside space-y-2 mb-8 text-framer-body-lg text-ink-muted leading-relaxed">
+        <li><strong class="text-ink">PNG</strong> — A raster format ideal for websites, social media posts, and digital documents. PNG files support transparent backgrounds.</li>
+        <li><strong class="text-ink">SVG</strong> — A vector format that scales to any size without losing sharpness. Best for print materials like business cards, posters, and signage.</li>
+      </ul>
+      <p class="text-framer-body-lg text-ink-muted leading-relaxed">
+        Both formats are downloaded at no cost and contain no watermarks. The SVG output is particularly useful if you need your QR code printed at large sizes where pixel-based images would look blurry.
+      </p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="px-6 md:px-8">
+    <div class="max-w-[720px] mx-auto tile-section">
+      <h2 class="font-display text-[32px] md:text-[62px] font-semibold leading-[1.0] tracking-[-3.1px] text-ink mb-4">
+        FAQ
+      </h2>
+      <p class="text-framer-body-lg text-ink-muted mb-12">
+        Common questions about creating QR codes with this free online tool.
+      </p>
+
+      <div class="space-y-0">
+        <details class="group border-b border-hairline">
+          <summary class="flex items-center justify-between py-6 cursor-pointer text-framer-body font-semibold text-ink hover:text-accent-blue transition-colors list-none">
+            What is a QR code generator?
+            <svg class="w-5 h-5 text-ink-muted group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </summary>
+          <div class="pb-6 text-framer-body text-ink-muted leading-relaxed">
+            A QR code generator is a tool that converts data — such as website URLs, contact information, or text — into a scannable two-dimensional barcode. When scanned with a smartphone camera, the encoded information is instantly accessible. This free QR code generator works entirely in your browser with no signup required.
+          </div>
+        </details>
+
+        <details class="group border-b border-hairline">
+          <summary class="flex items-center justify-between py-6 cursor-pointer text-framer-body font-semibold text-ink hover:text-accent-blue transition-colors list-none">
+            How do I create a QR code online?
+            <svg class="w-5 h-5 text-ink-muted group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </summary>
+          <div class="pb-6 text-framer-body text-ink-muted leading-relaxed">
+            Select a QR code type — URL, Text, WiFi, Email, vCard, Phone, SMS, or Location — then enter your information. Your QR code generates instantly as you type. You can customize the colors and dot style, add a logo, then download the QR code as PNG or SVG.
+          </div>
+        </details>
+
+        <details class="group border-b border-hairline">
+          <summary class="flex items-center justify-between py-6 cursor-pointer text-framer-body font-semibold text-ink hover:text-accent-blue transition-colors list-none">
+            Is this QR code generator free?
+            <svg class="w-5 h-5 text-ink-muted group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </summary>
+          <div class="pb-6 text-framer-body text-ink-muted leading-relaxed">
+            Yes. This QR code generator is completely free to use. There are no signups, no watermarks on downloaded codes, and no usage limits. All QR code generation happens directly in your browser.
+          </div>
+        </details>
+
+        <details class="group border-b border-hairline">
+          <summary class="flex items-center justify-between py-6 cursor-pointer text-framer-body font-semibold text-ink hover:text-accent-blue transition-colors list-none">
+            Can I create a QR code for a URL?
+            <svg class="w-5 h-5 text-ink-muted group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </summary>
+          <div class="pb-6 text-framer-body text-ink-muted leading-relaxed">
+            Yes. Choose the URL type, paste any website link, and a scannable QR code is generated instantly. This works for any valid URL — product pages, social media profiles, landing pages, and more.
+          </div>
+        </details>
+
+        <details class="group border-b border-hairline">
+          <summary class="flex items-center justify-between py-6 cursor-pointer text-framer-body font-semibold text-ink hover:text-accent-blue transition-colors list-none">
+            Can I create a WiFi QR code?
+            <svg class="w-5 h-5 text-ink-muted group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </summary>
+          <div class="pb-6 text-framer-body text-ink-muted leading-relaxed">
+            Yes. Select the WiFi type, enter your network name (SSID) and password, and the generator creates a QR code that lets others connect to your WiFi network by scanning it — no manual password entry required.
+          </div>
+        </details>
+
+        <details class="group border-b border-hairline">
+          <summary class="flex items-center justify-between py-6 cursor-pointer text-framer-body font-semibold text-ink hover:text-accent-blue transition-colors list-none">
+            Can I add a logo to a QR code?
+            <svg class="w-5 h-5 text-ink-muted group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </summary>
+          <div class="pb-6 text-framer-body text-ink-muted leading-relaxed">
+            Yes. Open the Customize QR Code panel and use the logo upload feature to embed your brand logo or any image in the center of the QR code. QR codes include error correction, so the code remains scannable even with a logo covering part of it.
+          </div>
+        </details>
+
+        <details class="group border-b border-hairline">
+          <summary class="flex items-center justify-between py-6 cursor-pointer text-framer-body font-semibold text-ink hover:text-accent-blue transition-colors list-none">
+            Can I download my QR code?
+            <svg class="w-5 h-5 text-ink-muted group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </summary>
+          <div class="pb-6 text-framer-body text-ink-muted leading-relaxed">
+            Yes. After generating a QR code, you can download it as PNG for digital use or as SVG for print-quality graphics. Both formats are free and contain no watermarks.
+          </div>
+        </details>
+
+        <details class="group border-b border-hairline">
+          <summary class="flex items-center justify-between py-6 cursor-pointer text-framer-body font-semibold text-ink hover:text-accent-blue transition-colors list-none">
+            Do QR codes expire?
+            <svg class="w-5 h-5 text-ink-muted group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </summary>
+          <div class="pb-6 text-framer-body text-ink-muted leading-relaxed">
+            Static QR codes — like the ones generated here — do not expire. Once created, the encoded data is permanent. If a QR code links to a URL, the URL itself must remain active for the link to work, but the QR code pattern stays valid indefinitely.
+          </div>
+        </details>
+
+        <details class="group">
+          <summary class="flex items-center justify-between py-6 cursor-pointer text-framer-body font-semibold text-ink hover:text-accent-blue transition-colors list-none">
+            Can I use QR codes for my business?
+            <svg class="w-5 h-5 text-ink-muted group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </summary>
+          <div class="pb-6 text-framer-body text-ink-muted leading-relaxed">
+            Absolutely. QR codes are widely used in business for marketing campaigns, restaurant menus, product packaging, business cards, event check-ins, and customer service. With the customization options in this generator, you can match QR codes to your brand colors and add your company logo.
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bottom CTA -->
+  <section class="px-6 md:px-8">
+    <div class="max-w-[600px] mx-auto text-center tile-section">
+      <h2 class="font-display text-[32px] md:text-[62px] font-semibold leading-[1.0] tracking-[-3.1px] text-ink mb-4">
+        Start Creating
+      </h2>
+      <p class="text-framer-body-lg text-ink-muted mb-8">
+        No account. No credit card. No limits. Just free QR codes.
+      </p>
+      <a
+        href="#generator"
+        class="inline-block bg-primary text-on-primary text-framer-button rounded-pill px-8 py-3 btn-press transition-transform no-underline hover:no-underline"
+      >
+        Create QR Code
+      </a>
+    </div>
+  </section>
+</Layout>

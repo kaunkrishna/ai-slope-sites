@@ -1,0 +1,247 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { 
+  title = 'Free QR Code Generator — Create Custom QR Codes Online | No Signup',
+  description = 'Free QR code generator with instant live preview. Create custom QR codes for URLs, WiFi, text, email, vCard, and more. Customize colors, add your logo, and download as PNG or SVG — no signup required.'
+} = Astro.props;
+
+const canonicalURL = 'https://qr-generator.com/';
+const siteName = 'QR Generator';
+const ogImage = 'https://qr-generator.com/og-image.png';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={canonicalURL} />
+
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Free QR Code Generator — Create Custom QR Codes Online" />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content="Free QR Code Generator — Create Custom QR Codes Online" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+    <!-- Fonts: Mona Sans (display) + Inter Variable (body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=Mona+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- JSON-LD Structured Data: WebApplication -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "QR Generator",
+      "url": canonicalURL,
+      "description": "Free online QR code generator. Create custom QR codes for URLs, WiFi, text, email, vCard, phone, SMS, and location. Customize colors, add logos, and download as PNG or SVG.",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Web Browser",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "featureList": [
+        "8 QR code types: URL, Text, WiFi, Email, vCard, Phone, SMS, Location",
+        "Custom QR code colors and dot styles",
+        "Logo upload for branded QR codes",
+        "Download as PNG or SVG",
+        "Instant live preview",
+        "No signup required"
+      ],
+      "browserRequirements": "Requires a modern web browser with JavaScript enabled",
+      "softwareHelp": {
+        "@type": "CreativeWork",
+        "url": canonicalURL
+      }
+    })} />
+
+    <!-- JSON-LD Structured Data: WebSite (for sitelinks search box) -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": siteName,
+      "url": canonicalURL,
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": canonicalURL + "?q={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      }
+    })} />
+
+    <!-- JSON-LD Structured Data: FAQPage -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is a QR code generator?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A QR code generator is a tool that creates QR codes — square barcodes that can be scanned by smartphone cameras to quickly access URLs, contact information, WiFi credentials, or other data. Our free QR code generator works entirely in your browser with no signup required."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I create a QR code online?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Select a QR code type (URL, Text, WiFi, Email, vCard, Phone, SMS, or Location), enter your information, and your QR code generates instantly. You can customize the colors and dot style, add a logo, then download the QR code as PNG or SVG."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is this QR code generator free?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, this QR code generator is completely free. There are no signups, no watermarks on downloaded codes, and no usage limits. All QR code generation happens in your browser."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I create a QR code for a URL?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Select the URL type, paste any website link, and a scannable QR code is generated instantly. This works for any valid URL including product pages, social profiles, and landing pages."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I create a WiFi QR code?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Choose the WiFi type, enter your network name (SSID) and password, and the generator creates a QR code that lets others connect to your WiFi network by scanning it — no manual password entry needed."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I add a logo to a QR code?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Open the Customize QR Code panel and use the logo upload feature to embed your brand logo or any image into the center of the QR code. The QR code remains scannable as long as the logo does not cover too much of the code area."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I download my QR code?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. After generating a QR code, you can download it as a PNG for web use or as an SVG for print-quality graphics. Both formats are free and contain no watermarks."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do QR codes expire?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Static QR codes — like the ones generated here — do not expire. Once created, the encoded data is permanent. If a QR code links to a URL, the URL itself must remain active for the link to work, but the QR code pattern stays valid indefinitely."
+          }
+        }
+      ]
+    })} />
+  </head>
+  <body class="bg-canvas text-ink">
+    <!-- Nav -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-canvas/80 backdrop-blur-xl border-b border-hairline" role="navigation" aria-label="Main navigation">
+      <div class="max-w-[1200px] mx-auto px-6 md:px-8 flex items-center justify-between h-14">
+        <a href="/" class="text-framer-body-sm font-semibold tracking-tight text-ink hover:text-ink transition-colors no-underline" aria-label="QR Generator — Home">
+          QR Generator
+        </a>
+        <div class="flex items-center gap-6">
+          <a href="#features" class="hidden md:block text-framer-body-sm text-ink-muted hover:text-ink transition-colors no-underline">Features</a>
+          <a href="#types" class="hidden md:block text-framer-body-sm text-ink-muted hover:text-ink transition-colors no-underline">Types</a>
+          <a href="#faq" class="hidden md:block text-framer-body-sm text-ink-muted hover:text-ink transition-colors no-underline">FAQ</a>
+          <a
+            href="#generator"
+            class="text-framer-button bg-primary text-on-primary rounded-pill px-4 py-2.5 btn-press transition-transform no-underline hover:no-underline"
+          >
+            Get Started
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <main class="pt-14">
+      <slot />
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-canvas border-t border-hairline" role="contentinfo">
+      <div class="max-w-[1200px] mx-auto px-6 md:px-8 pt-16 pb-12">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-10">
+          <div>
+            <h4 class="text-framer-caption text-ink mb-4">Product</h4>
+            <ul class="space-y-3">
+              <li><a href="/" class="text-framer-body-sm text-ink-muted hover:text-ink transition-colors no-underline">QR Generator</a></li>
+              <li><a href="#features" class="text-framer-body-sm text-ink-muted hover:text-ink transition-colors no-underline">Features</a></li>
+              <li><a href="#types" class="text-framer-body-sm text-ink-muted hover:text-ink transition-colors no-underline">QR Types</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="text-framer-caption text-ink mb-4">QR Code Types</h4>
+            <ul class="space-y-3">
+              <li><span class="text-framer-body-sm text-ink-muted">URL QR Code</span></li>
+              <li><span class="text-framer-body-sm text-ink-muted">WiFi QR Code</span></li>
+              <li><span class="text-framer-body-sm text-ink-muted">vCard QR Code</span></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="text-framer-caption text-ink mb-4">Resources</h4>
+            <ul class="space-y-3">
+              <li><a href="#faq" class="text-framer-body-sm text-ink-muted hover:text-ink transition-colors no-underline">FAQ</a></li>
+              <li><span class="text-framer-body-sm text-ink-muted">Guides</span></li>
+              <li><span class="text-framer-body-sm text-ink-muted">Blog</span></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="text-framer-caption text-ink mb-4">Legal</h4>
+            <ul class="space-y-3">
+              <li><span class="text-framer-body-sm text-ink-muted">Privacy</span></li>
+              <li><span class="text-framer-body-sm text-ink-muted">Terms</span></li>
+              <li><span class="text-framer-body-sm text-ink-muted">Cookies</span></li>
+            </ul>
+          </div>
+        </div>
+        <div class="border-t border-hairline pt-6">
+          <p class="text-framer-micro text-ink-muted">
+            Copyright &copy; {new Date().getFullYear()} qr-generator.com. Free QR code generator — no signup required.
+          </p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,600 @@
+---
+// QR Generator component - client-side interactive
+---
+
+<div id="generator" class="bg-surface-1 rounded-3xl p-6 md:p-8 max-w-[640px] mx-auto border border-hairline">
+  <!-- Type Selector -->
+  <div class="flex flex-wrap gap-2 mb-6">
+    <button data-type="url" class="qr-type-btn active bg-primary text-on-primary text-framer-button rounded-pill px-4 py-2.5 btn-press transition-all">URL</button>
+    <button data-type="text" class="qr-type-btn bg-surface-2 text-ink text-framer-button rounded-pill px-4 py-2.5 btn-press transition-all hover:bg-white/10">Text</button>
+    <button data-type="wifi" class="qr-type-btn bg-surface-2 text-ink text-framer-button rounded-pill px-4 py-2.5 btn-press transition-all hover:bg-white/10">WiFi</button>
+    <button data-type="email" class="qr-type-btn bg-surface-2 text-ink text-framer-button rounded-pill px-4 py-2.5 btn-press transition-all hover:bg-white/10">Email</button>
+    <button data-type="vcard" class="qr-type-btn bg-surface-2 text-ink text-framer-button rounded-pill px-4 py-2.5 btn-press transition-all hover:bg-white/10">vCard</button>
+    <button data-type="phone" class="qr-type-btn bg-surface-2 text-ink text-framer-button rounded-pill px-4 py-2.5 btn-press transition-all hover:bg-white/10">Phone</button>
+    <button data-type="sms" class="qr-type-btn bg-surface-2 text-ink text-framer-button rounded-pill px-4 py-2.5 btn-press transition-all hover:bg-white/10">SMS</button>
+    <button data-type="location" class="qr-type-btn bg-surface-2 text-ink text-framer-button rounded-pill px-4 py-2.5 btn-press transition-all hover:bg-white/10">Location</button>
+  </div>
+
+  <!-- Input Fields -->
+  <div id="input-fields" class="space-y-4 mb-6">
+    <!-- URL input (default) -->
+    <div id="field-url" class="qr-field">
+      <label class="block text-framer-body-sm text-ink mb-2">Website URL</label>
+      <input
+        type="url"
+        id="input-url"
+        class="w-full bg-canvas border border-hairline rounded-md px-4 py-3 text-framer-body text-ink placeholder:text-ink-muted focus:outline-none focus:border-accent-blue focus:ring-1 focus:ring-accent-blue/30 transition-all"
+        placeholder="https://example.com"
+        autocomplete="off"
+      />
+    </div>
+
+    <!-- Text input -->
+    <div id="field-text" class="qr-field hidden">
+      <label class="block text-framer-body-sm text-ink mb-2">Text Content</label>
+      <textarea
+        id="input-text"
+        rows="3"
+        class="w-full bg-canvas border border-hairline rounded-md px-4 py-3 text-framer-body text-ink placeholder:text-ink-muted focus:outline-none focus:border-accent-blue focus:ring-1 focus:ring-accent-blue/30 transition-all resize-none"
+        placeholder="Enter any text (up to 300 characters)"
+        maxlength="300"
+      ></textarea>
+      <p class="text-framer-body-sm text-ink-muted mt-1"><span id="char-count">0</span>/300</p>
+    </div>
+
+    <!-- WiFi input -->
+    <div id="field-wifi" class="qr-field hidden">
+      <label class="block text-framer-body-sm text-ink mb-2">Network Name (SSID)</label>
+      <input
+        type="text"
+        id="input-wifi-ssid"
+        class="w-full bg-canvas border border-hairline rounded-md px-4 py-3 text-framer-body text-ink placeholder:text-ink-muted focus:outline-none focus:border-accent-blue focus:ring-1 focus:ring-accent-blue/30 transition-all mb-3"
+        placeholder="MyNetwork"
+      />
+      <label class="block text-framer-body-sm text-ink mb-2">Password</label>
+      <input
+        type="text"
+        id="input-wifi-pass"
+        class="w-full bg-canvas border border-hairline rounded-md px-4 py-3 text-framer-body text-ink placeholder:text-ink-muted focus:outline-none focus:border-accent-blue focus:ring-1 focus:ring-accent-blue/30 transition-all mb-3"
+        placeholder="Optional"
+      />
+      <label class="block text-framer-body-sm text-ink mb-2">Security</label>
+      <select
+        id="input-wifi-auth"
+        class="w-full bg-canvas border border-hairline rounded-md px-4 py-3 text-framer-body text-ink focus:outline-none focus:border-accent-blue focus:ring-1 focus:ring-accent-blue/30 transition-all"
+      >
+        <option value="WPA">WPA/WPA2</option>
+        <option value="WEP">WEP</option>
+        <option value="nopass">None (Open)</option>
+      </select>
+    </div>
+
+    <!-- Email input -->
+    <div id="field-email" class="qr-field hidden">
+      <label class="block text-framer-body-sm text-ink mb-2">Email Address</label>
+      <input
+        type="email"
+        id="input-email"
+        class="w-full bg-canvas border border-hairline rounded-md px-4 py-3 text-framer-body text-ink placeholder:text-ink-muted focus:outline-none focus:border-accent-blue focus:ring-1 focus:ring-accent-blue/30 transition-all mb-3"
+        placeholder="hello@example.com"
+      />
+      <label class="block text-framer-body-sm text-ink mb-2">Subject</label>
+      <input
+        type="text"
+        id="input-email-subject"
+        class="w-full bg-canvas border border-hairline rounded-md px-4 py-3 text-framer-body text-ink placeholder:text-ink-muted focus:outline-none focus:border-accent-blue focus:ring-1 focus:ring-accent-blue/30 transition-all mb-3"
+        placeholder="Optional"
+      />
+      <label class="block text-framer-body-sm text-ink mb-2">Message</label>
+      <textarea
+        id="input-email-body"
+        rows="2"
+        class="w-full bg-canvas border border-hairline rounded-md px-4 py-3 text-framer-body text-ink placeholder:text-ink-muted focus:outline-none focus:border-accent-blue focus:ring-1 focus:ring-accent-blue/30 transition-all resize-none"
+        placeholder="Optional"
+      ></textarea>
+    </div>
+
+    <!-- vCard input -->
+    <div id="field-vcard" class="qr-field hidden">
+      <label class="block text-framer-body-sm text-ink mb-2">Full Name</label>
+      <input
+        type="text"
+        id="input-vcard-name"
+        class="w-full bg-canvas border border-hairline rounded-md px-4 py-3 text-framer-body text-ink placeholder:text-ink-muted focus:outline-none focus:border-accent-blue focus:ring-1 focus:ring-accent-blue/30 transition-all mb-3"
+        placeholder="John Doe"
+      />
+      <label class="block text-framer-body-sm text-ink mb-2">Phone</label>
+      <input
+        type="tel"
+        id="input-vcard-phone"
+        class="w-full bg-canvas border border-hairline rounded-md px-4 py-3 text-framer-body text-ink placeholder:text-ink-muted focus:outline-none focus:border-accent-blue focus:ring-1 focus:ring-accent-blue/30 transition-all mb-3"
+        placeholder="+1 234 567 890"
+      />
+      <label class="block text-framer-body-sm text-ink mb-2">Email</label>
+      <input
+        type="email"
+        id="input-vcard-email"
+        class="w-full bg-canvas border border-hairline rounded-md px-4 py-3 text-framer-body text-ink placeholder:text-ink-muted focus:outline-none focus:border-accent-blue focus:ring-1 focus:ring-accent-blue/30 transition-all mb-3"
+        placeholder="john@example.com"
+      />
+      <label class="block text-framer-body-sm text-ink mb-2">Company</label>
+      <input
+        type="text"
+        id="input-vcard-company"
+        class="w-full bg-canvas border border-hairline rounded-md px-4 py-3 text-framer-body text-ink placeholder:text-ink-muted focus:outline-none focus:border-accent-blue focus:ring-1 focus:ring-accent-blue/30 transition-all"
+        placeholder="Optional"
+      />
+    </div>
+
+    <!-- Phone input -->
+    <div id="field-phone" class="qr-field hidden">
+      <label class="block text-framer-body-sm text-ink mb-2">Phone Number</label>
+      <input
+        type="tel"
+        id="input-phone"
+        class="w-full bg-canvas border border-hairline rounded-md px-4 py-3 text-framer-body text-ink placeholder:text-ink-muted focus:outline-none focus:border-accent-blue focus:ring-1 focus:ring-accent-blue/30 transition-all"
+        placeholder="+1 234 567 890"
+      />
+    </div>
+
+    <!-- SMS input -->
+    <div id="field-sms" class="qr-field hidden">
+      <label class="block text-framer-body-sm text-ink mb-2">Phone Number</label>
+      <input
+        type="tel"
+        id="input-sms-phone"
+        class="w-full bg-canvas border border-hairline rounded-md px-4 py-3 text-framer-body text-ink placeholder:text-ink-muted focus:outline-none focus:border-accent-blue focus:ring-1 focus:ring-accent-blue/30 transition-all mb-3"
+        placeholder="+1 234 567 890"
+      />
+      <label class="block text-framer-body-sm text-ink mb-2">Message</label>
+      <textarea
+        id="input-sms-message"
+        rows="2"
+        class="w-full bg-canvas border border-hairline rounded-md px-4 py-3 text-framer-body text-ink placeholder:text-ink-muted focus:outline-none focus:border-accent-blue focus:ring-1 focus:ring-accent-blue/30 transition-all resize-none"
+        placeholder="Your message"
+      ></textarea>
+    </div>
+
+    <!-- Location input -->
+    <div id="field-location" class="qr-field hidden">
+      <label class="block text-framer-body-sm text-ink mb-2">Latitude</label>
+      <input
+        type="text"
+        id="input-loc-lat"
+        class="w-full bg-canvas border border-hairline rounded-md px-4 py-3 text-framer-body text-ink placeholder:text-ink-muted focus:outline-none focus:border-accent-blue focus:ring-1 focus:ring-accent-blue/30 transition-all mb-3"
+        placeholder="40.7128"
+      />
+      <label class="block text-framer-body-sm text-ink mb-2">Longitude</label>
+      <input
+        type="text"
+        id="input-loc-lng"
+        class="w-full bg-canvas border border-hairline rounded-md px-4 py-3 text-framer-body text-ink placeholder:text-ink-muted focus:outline-none focus:border-accent-blue focus:ring-1 focus:ring-accent-blue/30 transition-all"
+        placeholder="-74.0060"
+      />
+    </div>
+  </div>
+
+  <!-- Customization Toggle -->
+  <div class="border-t border-hairline pt-4 mb-6">
+    <button
+      id="toggle-customize"
+      class="flex items-center gap-2 text-framer-body-sm text-ink hover:text-accent-blue transition-colors"
+    >
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+      </svg>
+      Customize QR Code
+    </button>
+  </div>
+
+  <!-- Customization Panel (hidden by default) -->
+  <div id="customize-panel" class="hidden border-t border-hairline pt-6 mb-6">
+    <div class="grid grid-cols-2 gap-4">
+      <!-- QR Color -->
+      <div>
+        <label class="block text-framer-body-sm text-ink mb-2">QR Color</label>
+        <div class="flex items-center gap-2">
+          <input
+            type="color"
+            id="qr-color"
+            value="#000000"
+            class="w-10 h-10 rounded-full border border-hairline cursor-pointer"
+          />
+          <input
+            type="text"
+            id="qr-color-text"
+            value="#000000"
+            class="w-full bg-canvas border border-hairline rounded-md px-3 py-2 text-framer-body-sm text-ink"
+          />
+        </div>
+      </div>
+
+      <!-- Background Color -->
+      <div>
+        <label class="block text-framer-body-sm text-ink mb-2">Background</label>
+        <div class="flex items-center gap-2">
+          <input
+            type="color"
+            id="qr-bg"
+            value="#ffffff"
+            class="w-10 h-10 rounded-full border border-hairline cursor-pointer"
+          />
+          <input
+            type="text"
+            id="qr-bg-text"
+            value="#ffffff"
+            class="w-full bg-canvas border border-hairline rounded-md px-3 py-2 text-framer-body-sm text-ink"
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- Dot Style -->
+    <div class="mt-4">
+      <label class="block text-framer-body-sm text-ink mb-2">Dot Style</label>
+      <div class="flex gap-2">
+        <button data-dot="square" class="dot-style-btn active bg-primary text-on-primary text-framer-button rounded-pill px-4 py-2 btn-press transition-all">Square</button>
+        <button data-dot="rounded" class="dot-style-btn bg-surface-2 text-ink text-framer-button rounded-pill px-4 py-2 btn-press transition-all hover:bg-white/10">Rounded</button>
+        <button data-dot="circle" class="dot-style-btn bg-surface-2 text-ink text-framer-button rounded-pill px-4 py-2 btn-press transition-all hover:bg-white/10">Circle</button>
+        <button data-dot="diamond" class="dot-style-btn bg-surface-2 text-ink text-framer-button rounded-pill px-4 py-2 btn-press transition-all hover:bg-white/10">Diamond</button>
+      </div>
+    </div>
+
+    <!-- Logo Upload -->
+    <div class="mt-4">
+      <label class="block text-framer-body-sm text-ink mb-2">Logo (optional)</label>
+      <label class="flex items-center justify-center gap-2 bg-canvas border border-dashed border-hairline rounded-md px-4 py-4 cursor-pointer hover:bg-surface-1 transition-colors">
+        <svg class="w-5 h-5 text-ink-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        </svg>
+        <span class="text-framer-body-sm text-ink-muted">Upload image</span>
+        <input type="file" id="logo-upload" accept="image/*" class="hidden" />
+      </label>
+      <button id="remove-logo" class="hidden mt-2 text-framer-body-sm text-accent-blue hover:text-accent-blue/80 transition-colors">
+        Remove logo
+      </button>
+    </div>
+  </div>
+
+  <!-- QR Preview + Download -->
+  <div class="flex flex-col items-center gap-6">
+    <div id="qr-output" class="bg-canvas border border-hairline rounded-xl p-6 flex items-center justify-center qr-preview">
+      <div id="qr-placeholder" class="text-center">
+        <svg class="w-16 h-16 mx-auto text-ink-muted/30 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z" />
+        </svg>
+        <p class="text-framer-body-sm text-ink-muted">Your QR code will appear here</p>
+      </div>
+      <canvas id="qr-canvas" class="hidden"></canvas>
+    </div>
+
+    <!-- Download Buttons -->
+    <div id="download-buttons" class="hidden flex flex-wrap gap-3 justify-center">
+      <button
+        id="download-png"
+        class="bg-primary text-on-primary text-framer-button rounded-pill px-6 py-3 btn-press transition-transform"
+      >
+        Download PNG
+      </button>
+      <button
+        id="download-svg"
+        class="bg-surface-2 text-ink text-framer-button rounded-pill px-6 py-3 btn-press transition-all hover:bg-white/10"
+      >
+        Download SVG
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  import QRCodeStyling from 'qr-code-styling';
+
+  let qrCode: QRCodeStyling | null = null;
+  let currentType = 'url';
+  let currentDotStyle = 'square';
+  let logoFile: File | null = null;
+
+  const typeButtons = document.querySelectorAll('.qr-type-btn');
+  const fields = document.querySelectorAll('.qr-field');
+  const inputUrl = document.getElementById('input-url') as HTMLInputElement;
+
+  typeButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      typeButtons.forEach((b) => {
+        b.classList.remove('active', 'bg-primary', 'text-on-primary');
+        b.classList.add('bg-surface-2', 'text-ink');
+      });
+      btn.classList.add('active', 'bg-primary', 'text-on-primary');
+      btn.classList.remove('bg-surface-2', 'text-ink');
+      
+      currentType = (btn as HTMLElement).dataset.type || 'url';
+      fields.forEach((f) => f.classList.add('hidden'));
+      const target = document.getElementById(`field-${currentType}`);
+      if (target) target.classList.remove('hidden');
+      
+      generateQR();
+    });
+  });
+
+  const dotButtons = document.querySelectorAll('.dot-style-btn');
+  dotButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      dotButtons.forEach((b) => {
+        b.classList.remove('active', 'bg-primary', 'text-on-primary');
+        b.classList.add('bg-surface-2', 'text-ink');
+      });
+      btn.classList.add('active', 'bg-primary', 'text-on-primary');
+      btn.classList.remove('bg-surface-2', 'text-ink');
+      
+      currentDotStyle = (btn as HTMLElement).dataset.dot || 'square';
+      generateQR();
+    });
+  });
+
+  const toggleBtn = document.getElementById('toggle-customize');
+  const customizePanel = document.getElementById('customize-panel');
+  toggleBtn?.addEventListener('click', () => {
+    customizePanel?.classList.toggle('hidden');
+  });
+
+  const qrColor = document.getElementById('qr-color') as HTMLInputElement;
+  const qrColorText = document.getElementById('qr-color-text') as HTMLInputElement;
+  const qrBg = document.getElementById('qr-bg') as HTMLInputElement;
+  const qrBgText = document.getElementById('qr-bg-text') as HTMLInputElement;
+
+  qrColor?.addEventListener('input', () => {
+    qrColorText.value = qrColor.value;
+    generateQR();
+  });
+  qrColorText?.addEventListener('input', () => {
+    qrColor.value = qrColorText.value;
+    generateQR();
+  });
+  qrBg?.addEventListener('input', () => {
+    qrBgText.value = qrBg.value;
+    generateQR();
+  });
+  qrBgText?.addEventListener('input', () => {
+    qrBg.value = qrBgText.value;
+    generateQR();
+  });
+
+  const logoUpload = document.getElementById('logo-upload') as HTMLInputElement;
+  const removeLogo = document.getElementById('remove-logo');
+  
+  logoUpload?.addEventListener('change', (e) => {
+    const file = (e.target as HTMLInputElement).files?.[0];
+    if (file) {
+      logoFile = file;
+      removeLogo?.classList.remove('hidden');
+      generateQR();
+    }
+  });
+
+  removeLogo?.addEventListener('click', () => {
+    logoFile = null;
+    logoUpload.value = '';
+    removeLogo.classList.add('hidden');
+    generateQR();
+  });
+
+  const inputText = document.getElementById('input-text') as HTMLTextAreaElement;
+  const charCount = document.getElementById('char-count');
+  inputText?.addEventListener('input', () => {
+    if (charCount) charCount.textContent = String(inputText.value.length);
+    generateQR();
+  });
+
+  inputUrl?.addEventListener('paste', (e) => {
+    setTimeout(() => {
+      const val = inputUrl.value.trim();
+      if (val.startsWith('mailto:') || val.includes('@') && !val.startsWith('http')) {
+        switchType('email');
+      } else if (val.startsWith('tel:') || /^\+?[\d\s-]{7,}$/.test(val)) {
+        switchType('phone');
+      } else if (val.startsWith('WIFI:')) {
+        switchType('wifi');
+      }
+      generateQR();
+    }, 50);
+  });
+
+  function switchType(type: string) {
+    typeButtons.forEach((b) => {
+      const el = b as HTMLElement;
+      if (el.dataset.type === type) {
+        el.classList.add('active', 'bg-primary', 'text-on-primary');
+        el.classList.remove('bg-surface-2', 'text-ink');
+      } else {
+        el.classList.remove('active', 'bg-primary', 'text-on-primary');
+        el.classList.add('bg-surface-2', 'text-ink');
+      }
+    });
+    currentType = type;
+    fields.forEach((f) => f.classList.add('hidden'));
+    const target = document.getElementById(`field-${type}`);
+    if (target) target.classList.remove('hidden');
+  }
+
+  function escapeWifiString(str: string): string {
+    return str.replace(/\\/g, '\\\\').replace(/"/g, '\\"').replace(/;/g, '\\;').replace(/,/g, '\\,');
+  }
+
+  function getData(): string {
+    switch (currentType) {
+      case 'url':
+        return inputUrl?.value?.trim() || '';
+      case 'text':
+        return inputText?.value?.trim() || '';
+      case 'wifi': {
+        const ssid = (document.getElementById('input-wifi-ssid') as HTMLInputElement)?.value || '';
+        const pass = (document.getElementById('input-wifi-pass') as HTMLInputElement)?.value || '';
+        const auth = (document.getElementById('input-wifi-auth') as HTMLSelectElement)?.value || 'WPA';
+        if (!ssid) return '';
+        const escapedSsid = escapeWifiString(ssid);
+        const escapedPass = auth === 'nopass' ? '' : escapeWifiString(pass);
+        return `WIFI:T:${auth};S:${escapedSsid};${auth === 'nopass' ? '' : `P:${escapedPass};`};;`;
+      }
+      case 'email': {
+        const email = (document.getElementById('input-email') as HTMLInputElement)?.value || '';
+        const subject = (document.getElementById('input-email-subject') as HTMLInputElement)?.value || '';
+        const body = (document.getElementById('input-email-body') as HTMLTextAreaElement)?.value || '';
+        if (!email) return '';
+        let uri = `mailto:${email}`;
+        const params: string[] = [];
+        if (subject) params.push(`subject=${encodeURIComponent(subject)}`);
+        if (body) params.push(`body=${encodeURIComponent(body)}`);
+        if (params.length) uri += `?${params.join('&')}`;
+        return uri;
+      }
+      case 'vcard': {
+        const name = (document.getElementById('input-vcard-name') as HTMLInputElement)?.value || '';
+        const phone = (document.getElementById('input-vcard-phone') as HTMLInputElement)?.value || '';
+        const email = (document.getElementById('input-vcard-email') as HTMLInputElement)?.value || '';
+        const company = (document.getElementById('input-vcard-company') as HTMLInputElement)?.value || '';
+        if (!name) return '';
+        const parts = name.split(' ');
+        const lastName = parts.length > 1 ? parts.slice(1).join(' ') : '';
+        const firstName = parts[0] || '';
+        const lines = [
+          'BEGIN:VCARD',
+          'VERSION:3.0',
+          `N:${lastName};${firstName};;;`,
+          `FN:${name}`,
+        ];
+        if (phone) lines.push(`TEL:${phone}`);
+        if (email) lines.push(`EMAIL:${email}`);
+        if (company) lines.push(`ORG:${company}`);
+        lines.push('END:VCARD');
+        return lines.join('\n');
+      }
+      case 'phone': {
+        const phone = (document.getElementById('input-phone') as HTMLInputElement)?.value || '';
+        return phone ? `tel:${phone}` : '';
+      }
+      case 'sms': {
+        const phone = (document.getElementById('input-sms-phone') as HTMLInputElement)?.value || '';
+        const msg = (document.getElementById('input-sms-message') as HTMLTextAreaElement)?.value || '';
+        if (!phone) return '';
+        return msg ? `sms:${phone}?body=${encodeURIComponent(msg)}` : `sms:${phone}`;
+      }
+      case 'location': {
+        const lat = (document.getElementById('input-loc-lat') as HTMLInputElement)?.value || '';
+        const lng = (document.getElementById('input-loc-lng') as HTMLInputElement)?.value || '';
+        if (!lat || !lng) return '';
+        const latNum = parseFloat(lat);
+        const lngNum = parseFloat(lng);
+        if (isNaN(latNum) || isNaN(lngNum)) return '';
+        if (latNum < -90 || latNum > 90 || lngNum < -180 || lngNum > 180) return '';
+        return `geo:${latNum},${lngNum}`;
+      }
+      default:
+        return '';
+    }
+  }
+
+  function getDotStyle(): string {
+    switch (currentDotStyle) {
+      case 'rounded': return 'rounded';
+      case 'circle': return 'extra-rounded';
+      case 'diamond': return 'classy';
+      default: return 'square';
+    }
+  }
+
+  let currentQrImg: HTMLImageElement | null = null;
+
+  function generateQR() {
+    const data = getData();
+    const placeholder = document.getElementById('qr-placeholder');
+    const canvas = document.getElementById('qr-canvas');
+    const downloadBtns = document.getElementById('download-buttons');
+    const output = document.getElementById('qr-output');
+
+    if (currentQrImg) {
+      currentQrImg.remove();
+      currentQrImg = null;
+    }
+
+    if (!data) {
+      placeholder?.classList.remove('hidden');
+      canvas?.classList.add('hidden');
+      downloadBtns?.classList.add('hidden');
+      qrCode = null;
+      return;
+    }
+
+    placeholder?.classList.add('hidden');
+    canvas?.classList.add('hidden');
+    downloadBtns?.classList.remove('hidden');
+
+    const fgColor = qrColor?.value || '#000000';
+    const bgColor = qrBg?.value || '#ffffff';
+
+    qrCode = new QRCodeStyling({
+      width: 320,
+      height: 320,
+      type: 'svg',
+      data: data,
+      image: logoFile ? URL.createObjectURL(logoFile) : undefined,
+      dotsOptions: {
+        color: fgColor,
+        type: getDotStyle() as any,
+      },
+      backgroundOptions: {
+        color: bgColor,
+      },
+      cornersSquareOptions: {
+        type: getDotStyle() === 'square' ? 'square' : 'extra-rounded',
+        color: fgColor,
+      },
+      cornersDotOptions: {
+        type: getDotStyle() === 'square' ? 'square' : 'dot',
+        color: fgColor,
+      },
+      margin: 10,
+    });
+
+    if (output && canvas) {
+      qrCode.getRawData('svg').then((svgData) => {
+        const blob = new Blob([svgData], { type: 'image/svg+xml' });
+        const url = URL.createObjectURL(blob);
+        const img = document.createElement('img');
+        img.src = url;
+        img.className = 'qr-preview';
+        img.alt = 'Generated QR Code';
+        output.insertBefore(img, canvas);
+        currentQrImg = img;
+      });
+    }
+  }
+
+  document.getElementById('download-png')?.addEventListener('click', async () => {
+    if (!qrCode) return;
+    const blob = await qrCode.getRawData('png');
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'qr-code.png';
+    a.click();
+    URL.revokeObjectURL(url);
+  });
+
+  document.getElementById('download-svg')?.addEventListener('click', async () => {
+    if (!qrCode) return;
+    const blob = await qrCode.getRawData('svg');
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'qr-code.svg';
+    a.click();
+    URL.revokeObjectURL(url);
+  });
+
+  document.querySelectorAll('#input-fields input, #input-fields textarea, #input-fields select').forEach((input) => {
+    input.addEventListener('input', () => generateQR());
+    input.addEventListener('change', () => generateQR());
+  });
+
+  generateQR();
+</script>
